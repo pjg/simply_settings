@@ -1,0 +1,115 @@
+SimplySettings
+==============
+
+SimplySettings is a Rails plugin providing a relatively simple settings system for your application.
+
+Setting are created like this:
+
+  Setting.create(:name => 'Comments enabled?', :slug => 'comments_enabled', :value => '1')
+
+They are automatically converted to instance variables, like this: @comments_enabled (Boolean type in this case).
+
+
+
+Requirements
+============
+
+Rails version 2.3+
+
+Gem dependencies:
+  redgreen (for testing) [OPTIONAL]
+  sqlite3-ruby (for testing)
+
+
+
+Installation
+============
+
+git clone git://github.com/pjg/simply_settings.git vendor/plugins/simply_settings
+
+script/generate model setting
+  class Setting < ActiveRecord::Base
+    acts_as_setting
+  end
+
+db/migrate/xxxxxxxxxxxxxx_create_settings.rb
+  create_table "settings" do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.string   "value"
+  end
+
+  add_index :settings, :slug, :unique => true
+
+
+Add some settings:
+
+  Setting.create(:name => 'Comments enabled?', :slug => 'comments_enabled', :value => '1')
+  # settings slugs must have /[a-z_]+/ format
+
+  Type of setting is based on the 'slug' field:
+
+    *_enabled, *_disabled, *_allowed
+    # boolean type assumed; automatically converted to Boolean ('0'/'1' in db)
+
+    *_value, *_limit, *_count
+    # numeric type assumed; automatically converted to Integer ('1231' in db)
+
+    *_text
+    # string type assumed; automatically converted to String ('Exemplary title' in db)
+
+    * (all others) - multiple-value custom setting assumed
+
+
+Custom multiple-value (limited set) settings (rendered as <select> elements):
+
+  config/initializers/simply_settings.rb
+     SimplySettings::custom_settings[:operating_mode] = {:name => 'Tryb pracy serwisu', :data => {
+        :normal => 'Normalny',
+        :easter => 'Wielkanocny',
+        :christmas => 'Bożonarodzeniowy',
+        :mourning => 'Żałobny'}}
+
+  will add @operating_mode setting and in the administration panel it will be rendered as <select> with those four <options> elements.
+
+
+script/generate controller settings
+
+  The exemplary controller could look like this:
+
+  class SettingsController < ApplicationController
+    before_filter :administrator_role_required
+    layout 'administration'
+
+    def index
+      edit_or_update_settings
+    end
+  end
+
+The plugin automatically adds a named route 'settings' at '/ustawienia'
+
+The plugin comes with its own template form to change the settings.
+
+
+
+Helpers
+=======
+
+For each Boolean setting, there will be a helper with ? suffixed.
+So for 'registration_allowed' setting (slug), there will also be a registration_allowed? helper.
+
+
+
+TESTING
+=======
+
+If you'd like to run the tests included within this plugin you must have a settings table created.
+
+You also need to have sqlite3 installed:
+
+aptitude install sqlite3 libsqlite3-dev
+gem install sqlite3-ruby
+
+
+
+Copyright (c) 2010 Paweł Gościcki, released under the MIT license

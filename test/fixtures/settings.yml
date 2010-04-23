@@ -1,0 +1,19 @@
+registration_allowed_setting:
+  slug: 'registration_allowed'
+  name: 'Rejestracja dozwolona?'
+  value: '1'
+
+password_change_allowed_setting:
+  slug: 'password_change_allowed'
+  name: 'Zmiana hasła możliwa?'
+  value: '1'
+
+welcome_text_setting:
+  slug: 'welcome_text'
+  name: 'Tekst powitalny'
+  value: 'Dzieńdoberek'
+
+news_limit_setting:
+  slug: 'news_limit'
+  name: 'Limit wiadomości'
+  value: '5'

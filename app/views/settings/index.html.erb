@@ -1,0 +1,29 @@
+<% form_tag do %>
+
+<% @settings.each do |setting| %>
+
+<% if setting.is_boolean? -%>
+<p><label class="checkbox" for="setting_<%= setting.slug %>"><%= setting.name %></label>
+<%= select "setting", setting.slug, [['TAK', '1'], ['NIE', '0']], :selected => setting.value %></p>
+<% elsif setting.is_numeric? -%>
+<p><label class="checkbox" for="setting_<%= setting.slug %>"><%= setting.name %>:</label>
+<%= text_field "setting", setting.slug, {:class => "text short", :size => 10, :value => setting.value} %></p>
+<% elsif setting.is_string? -%>
+<p><label class="checkbox" for="setting_<%= setting.slug %>"><%= setting.name %>:</label>
+<%= text_field "setting", setting.slug, {:class => "text", :size => 50, :value => setting.value} %></p>
+<% end -%>
+
+<% end -%>
+
+
+<% if SimplySettings::custom_settings.any? -%>
+<%   SimplySettings::custom_settings.each do |slug, setting| %>
+<p><label class="checkbox" for="setting_<%= slug.to_s %>"><%= setting[:name] %>:</label>
+<%= select "setting", slug.to_s, setting[:data].collect {|key, value| [value, key.to_s]}, :selected => @settings.detect {|s| s.slug == 'operating_mode'}.try(:value) %></p>
+<%   end -%>
+<% end -%>
+
+<p class="submit"><%= submit_tag 'Zapisz', :class => 'button' %>
+<%= tag :input, :type => 'button', :value => 'Anuluj', :class => "button cancel panel" %></p>
+
+<% end -%>
