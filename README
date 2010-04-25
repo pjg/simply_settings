@@ -100,7 +100,25 @@ So for 'registration_allowed' setting (slug), there will also be a registration_
 
 
 
-TESTING
+Filters
+=======
+
+You can create your own custom filters (before or any other) using stored settings. Like this:
+
+in application_controller.rb:
+
+  # FILTER
+  def registration_allowed
+    return if registration_allowed?
+    flash[:error] = 'Rejestracja jest obecnie wyłączona'
+    redirect_to SimplyAuthenticate::Settings.default_redirect_to
+  end
+
+The above code is a snippet from the simply_authenticate plugin (http://github.com/pjg/simply_authenticate).
+
+
+
+Testing
 =======
 
 If you'd like to run the tests included within this plugin you must have a settings table created.
