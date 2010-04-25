@@ -25,7 +25,8 @@ Gem dependencies:
 Installation
 ============
 
-git clone git://github.com/pjg/simply_settings.git vendor/plugins/simply_settings
+git submodule add git://github.com/pjg/simply_settings.git vendor/plugins/simply_settings
+git commit -m "Add simply_settings plugin as a submodule"
 
 script/generate model setting
   class Setting < ActiveRecord::Base
