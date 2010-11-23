@@ -87,17 +87,21 @@ script/generate controller settings
     end
   end
 
-The plugin automatically adds a named route 'settings' at '/ustawienia'
+And finally add a named route to process settings:
 
-The plugin comes with its own template form to change the settings.
+  config/routes.rb
+    map.settings '/ustawienia', :controller => :settings
+
+
+The plugin comes with its own template form to change the settings (settings/index.html.erb).
 
 
 
 Helpers
 =======
 
-For each Boolean setting, there will be a helper with ? suffixed.
-So for 'registration_allowed' setting (slug), there will also be a registration_allowed? helper.
+For each Boolean setting, there will be a helper with the '?' character suffixed.
+So for the 'registration_allowed' setting (slug), there will also be a registration_allowed? helper.
 
 
 
