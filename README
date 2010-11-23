@@ -115,7 +115,7 @@ in application_controller.rb:
   # FILTER
   def registration_allowed
     return if registration_allowed?
-    flash[:error] = 'Rejestracja jest obecnie wyłączona'
+    flash[:alert] = 'Rejestracja jest obecnie wyłączona'
     redirect_to SimplyAuthenticate::Settings.default_redirect_to
   end
 

@@ -41,7 +41,7 @@ class SettingsControllerTest < ActionController::TestCase
     new_limit = 23
     post :index, {:setting => {:news_limit => new_limit.to_s}}
     assert_response :success
-    assert flash.has_key?(:success)
+    assert flash.has_key?(:notice)
     assert_equal new_limit, Setting.find_by_slug('news_limit').value.to_i
   end
 end

@@ -34,9 +34,9 @@ module SimplySettings
         setting = @settings.detect {|s| s.slug == slug}
         setting.update_attributes(:value => value) if setting
       end
-      flash.now[:success] = 'Ustawienia uaktualnione'
+      flash.now[:notice] = 'Ustawienia uaktualnione'
     rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
-      flash.now[:error] = 'Wystąpił błąd podczas aktualizacji ustawień'
+      flash.now[:alert] = 'Wystąpił błąd podczas aktualizacji ustawień'
     end
   end
 end
