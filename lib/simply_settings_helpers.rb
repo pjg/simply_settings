@@ -7,10 +7,12 @@ module SimplySettings
       set_table_name 'settings'
     end
 
-    CustomSetting.all(:order => 'id').each do |setting|
-      if setting.slug =~ /enabled$|disabled$|allowed$/
-        define_method "#{setting.slug}?" do
-          setting.value == '1' or setting.value == 'true'
+    if CustomSetting.table_exists?
+      CustomSetting.all(:order => 'id').each do |setting|
+        if setting.slug =~ /enabled$|disabled$|allowed$/
+          define_method "#{setting.slug}?" do
+            setting.value == '1' or setting.value == 'true'
+          end
         end
       end
     end
