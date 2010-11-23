@@ -9,7 +9,7 @@ ActiveRecord::Base.send :include, SimplySettings::ActsAsSetting
 ActionController::Base.send :include, SimplySettings::Helpers
 
 # Helpers will be available in all views
-ActionView::Base.send :include, SimplyAuthenticate::Helpers
+ActionView::Base.send :include, SimplySettings::Helpers
 
 # Before filters (will be run for every action in every controller)
 ActionController::Base.send :prepend_before_filter, :load_settings

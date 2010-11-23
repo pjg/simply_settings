@@ -104,7 +104,7 @@ So for 'registration_allowed' setting (slug), there will also be a registration_
 Filters
 =======
 
-You can create your own custom filters (before or any other) using stored settings. Like this:
+You can create your own custom Rails filters (before_ etc.) using stored settings. Like this:
 
 in application_controller.rb:
 

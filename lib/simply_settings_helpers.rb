@@ -1,9 +1,8 @@
 module SimplySettings
   module Helpers
 
-    # Hacky dynamic methods based on Boolean settings (like this: registration_allowed?)
-    # This is such a big HACK... disgusting
-    # It is, however, loaded only ONCE at Class creation (classes are cached in production mode)
+    # custom dynamic methods based on Boolean settings saved in db
+    # (we area creating methods like this: registration_allowed? comments_allowed?)
     class CustomSetting < ActiveRecord::Base
       set_table_name 'settings'
     end
